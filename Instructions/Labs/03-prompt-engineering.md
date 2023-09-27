@@ -158,7 +158,7 @@ To show how to integrate with an Azure OpenAI model, we'll use a short command-l
 
     ```bash
    rm -r azure-openai -f
-   git clone https://github.com/MicrosoftLearning/mslearn-openai azure-openai
+   git clone https://github.com/fenago/openai azure-openai
     ```
 
 6. The files are downloaded to a folder named **azure-openai**. Navigate to the lab files for this exercise using the following command.
@@ -167,13 +167,10 @@ To show how to integrate with an Azure OpenAI model, we'll use a short command-l
    cd azure-openai/Labfiles/03-prompt-engineering
     ```
 
-    Applications for both C# and Python have been provided, as well as a text files that provide the prompts. Both apps feature the same functionality.
+    Applications for Python have been provided, as well as a text files that provide the prompts. 
 
-    Open the built-in code editor, and you can observe the prompt files that you'll be using in `prompts`. Use the following command to open the lab files in the code editor.
+    Open the built-in code editor, and you can observe the prompt files that you'll be using in `prompts`. Open the lab files in the code editor.
 
-    ```bash
-   code .
-    ```
 
 ## Configure your application
 
@@ -183,19 +180,12 @@ For this exercise, you'll complete some key parts of the application to enable u
 
 2. Open the configuration file for your language.
 
-    - C#: `appsettings.json`
     - Python: `.env`
     
 3. Update the configuration values to include the **endpoint** and **key** from the Azure OpenAI resource you created, as well as the model name that you deployed, `text-turbo`. Save the file.
 
 4. Navigate to the folder for your preferred language and install the necessary packages.
 
-    **C#**
-
-    ```bash
-   cd CSharp
-   dotnet add package Azure.AI.OpenAI --version 1.0.0-beta.5
-    ```
 
     **Python**
 
@@ -207,12 +197,6 @@ For this exercise, you'll complete some key parts of the application to enable u
 
 5. Navigate to your preferred language folder, select the code file, and add the necessary libraries.
 
-    **C#**
-
-    ```csharp
-   // Add Azure OpenAI package
-   using Azure.AI.OpenAI;
-    ```
 
     **Python**
 
@@ -223,12 +207,6 @@ For this exercise, you'll complete some key parts of the application to enable u
 
 5. Open up the application code for your language and add the necessary code for configuring the client.
 
-    **C#**
-
-    ```csharp
-   // Initialize the Azure OpenAI client
-   OpenAIClient client = new OpenAIClient(new Uri(oaiEndpoint), new AzureKeyCredential(oaiKey));
-    ```
 
     **Python**
 
@@ -242,30 +220,6 @@ For this exercise, you'll complete some key parts of the application to enable u
 
 6. In the function that calls the Azure OpenAI model, add the code to format and send the request to the model.
 
-    **C#**
-
-    ```csharp
-   // Create chat completion options
-   var chatCompletionsOptions = new ChatCompletionsOptions()
-   {
-       Messages =
-       {
-          new ChatMessage(ChatRole.System, systemPrompt),
-          new ChatMessage(ChatRole.User, userPrompt)
-       },
-       Temperature = 0.7f,
-       MaxTokens = 800,
-   };
-
-   // Get response from Azure OpenAI
-   Response<ChatCompletions> response = await client.GetChatCompletionsAsync(
-       oaiModelName,
-       chatCompletionsOptions
-   );
-
-   ChatCompletions completions = response.Value;
-   string completion = completions.Choices[0].Message.Content;
-    ```
 
     **Python**
 
@@ -294,7 +248,6 @@ Each prompt is displayed in the console as it sends for you to see how differenc
 1. In the Cloud Shell bash terminal, navigate to the folder for your preferred language.
 1. Run the application, and expand the terminal to take up most of your browser window.
 
-    - **C#**: `dotnet run`
     - **Python**: `python prompt-engineering.py`
 
 1. Choose option **1** for the most basic prompt.

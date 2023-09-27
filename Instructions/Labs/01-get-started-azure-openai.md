@@ -39,7 +39,7 @@ Azure OpenAI provides a web-based portal named **Azure OpenAI Studio**, that you
     - **Modev version**: Auto-update to default
     - **Deployment name**: my-gpt-model
 
-> **Note**: Azure OpenAI includes multiple models, each optimized for a different balance of capabilities and performance. In this exercise, you'll use the **GPT-35-Turbo** model, which is a good general model for summarizing and generating natural language and code. For more information about the available models in Azure OpenAI, see [Models](https://learn.microsoft.com/azure/cognitive-services/openai/concepts/models) in the Azure OpenAI documentation.
+> **Note**: Azure OpenAI includes multiple models, each optimized for a different balance of capabilities and performance. In this exercise, you'll use the **GPT-35-Turbo** model, which is a good general model for summarizing and generating natural language and code.
 
 ## Explore a model in the Completions playground
 

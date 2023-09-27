@@ -50,7 +50,7 @@ The Azure OpenAI service provides a REST API that you can use to submit prompts 
 
 ### Prepare the app environment
 
-In this exercise, you'll use a simple Python or Microsoft C# app to generate images by calling the REST API. You'll run the code in the cloud shell console interface in the Azure portal.
+In this exercise, you'll use a simple Python app to generate images by calling the REST API. You'll run the code in the cloud shell console interface in the Azure portal.
 
 1. In the [Azure portal](https://portal.azure.com?azure-portal=true), select the **[>_]** (*Cloud Shell*) button at the top of the page to the right of the search box. A Cloud Shell pane will open at the bottom of the portal. 
 
@@ -68,10 +68,10 @@ In this exercise, you'll use a simple Python or Microsoft C# app to generate ima
 
     ```bash
    rm -r azure-openai -f
-   git clone https://github.com/MicrosoftLearning/mslearn-openai azure-openai
+   git clone https://github.com/fenago/openai azure-openai
     ```
 
-    The files are downloaded to a folder named **azure-openai**. Applications for both C# and Python have been provided. Both apps feature the same functionality.
+    The files are downloaded to a folder named **azure-openai**. Applications for Python have been provided.
 
 6. Navigate to the folder for the language you want to use by running the appropriate command.
 
@@ -81,17 +81,9 @@ In this exercise, you'll use a simple Python or Microsoft C# app to generate ima
    cd azure-openai/Labfiles/05-image-generation/Python
     ```
 
-    **C#**
 
-    ```bash
-   cd azure-openai/Labfiles/05-image-generation/CSharp
-    ```
+7. Open the built-in code editor and see the code files you will be working with.
 
-7. Use the following command to open the built-in code editor and see the code files you will be working with.
-
-    ```bash
-   code .
-    ```
 
 ### Configure your application
 
@@ -99,7 +91,6 @@ The application uses a configuration file to store the details needed to connect
 
 1. In the code editor, select the configuration file for your app - depending on your language preference.
 
-    - C#: `appsettings.json`
     - Python: `.env`
     
 2. Update the configuration values to include the **Endpoint** and **Key1** for your Azure OpenAI service and then save the file.
@@ -118,7 +109,6 @@ Now you're ready to explore the code used to call the REST API and generate an i
 
 1. In the code editor pane, select the main code file for your application:
 
-    - C#: `Program.cs`
     - Python: `generate-image.py`
 
 2. Review the code that the file contains, noting the following key features:
@@ -141,12 +131,6 @@ Now that you've reviewed the code, it's time to run it and generate some images.
 
     ```bash
    python generate-image.py
-    ```
-
-    **C#**
-
-    ```bash
-   dotnet run
     ```
 
 2. When prompted, enter a description for an image. For example, *A giraffe flying a kite*.
