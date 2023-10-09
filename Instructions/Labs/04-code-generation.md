@@ -102,10 +102,10 @@ To show how to integrate with an Azure OpenAI model, we'll use a short command-l
    cd azure-openai/Labfiles/04-code-generation
     ```
 
-    Applications for Python have been provided, as well as sample code we'll be using in this lab.
+    Applications for both C# and Python have been provided, as well as sample code we'll be using in this lab.
 
-    Open the built-in code editor, and you can observe the code files we'll be using in `sample-code`. Open the lab files in the code editor.
-
+    Open the built-in code editor, and you can observe the code files we'll be using in `sample-code`. Use the following command to open the lab files in the code editor.
+    
 
 ## Configure your application
 
@@ -115,11 +115,19 @@ For this exercise, you'll complete some key parts of the application to enable u
 
 2. Open the configuration file for your language.
 
+    - **C#**: `appsettings.json`
     - **Python**: `.env`
 
 3. Update the configuration values to include the **endpoint** and **key** from the Azure OpenAI resource you created, as well as the name of your deployment, `35turbo`. Save the file.
 
 4. Navigate to the folder for your preferred language and install the necessary packages.
+
+    **C#**
+
+    ```bash
+   cd CSharp
+   dotnet add package Azure.AI.OpenAI --version 1.0.0-beta.5
+    ```
 
     **Python**
 
@@ -131,6 +139,14 @@ For this exercise, you'll complete some key parts of the application to enable u
 
 5. Select the code file in this folder for your language and add the necessary libraries.
 
+    **C#**
+
+    `Program.cs`
+
+    ```csharp
+   // Add Azure OpenAI package
+   using Azure.AI.OpenAI;
+    ```
 
     **Python**
 
@@ -143,6 +159,13 @@ For this exercise, you'll complete some key parts of the application to enable u
 
 6. Add the necessary code for configuring the client.
 
+    **C#**
+
+    ```csharp
+   // Initialize the Azure OpenAI client
+   OpenAIClient client = new OpenAIClient(new Uri(oaiEndpoint), new AzureKeyCredential(oaiKey));
+    ```
+
     **Python**
 
     ```python
@@ -154,6 +177,31 @@ For this exercise, you'll complete some key parts of the application to enable u
     ```
 
 7. In the function that calls the Azure OpenAI model, add the code to format and send the request to the model.
+
+    **C#**
+
+    ```csharp
+    // Create chat completion options
+    var chatCompletionsOptions = new ChatCompletionsOptions()
+    {
+        Messages =
+        {
+            new ChatMessage(ChatRole.System, systemPrompt),
+            new ChatMessage(ChatRole.User, userPrompt)
+        },
+        Temperature = 0.7f,
+        MaxTokens = 1000,
+    };
+
+    // Get response from Azure OpenAI
+    Response<ChatCompletions> response = await client.GetChatCompletionsAsync(
+        oaiModelName,
+        chatCompletionsOptions
+    );
+
+    ChatCompletions completions = response.Value;
+    string completion = completions.Choices[0].Message.Content;
+    ```
 
     **Python**
 
@@ -183,6 +231,7 @@ Now that your app has been configured, run it to try generating code for each us
 1. In the Cloud Shell bash terminal, navigate to the folder for your preferred language.
 1. Run the application.
 
+    - **C#**: `dotnet run`
     - **Python**: `python code-generation.py`
 
 1. Choose option **1** to add comments to your code. Note, the response might take a few seconds for each of these tasks.
@@ -192,6 +241,7 @@ Now that your app has been configured, run it to try generating code for each us
 1. Next, choose option **3** to fix bugs in an app for playing Go Fish.
 1. The results will replace what was in `result/app.txt`, and should have very similar code with a few things corrected.
 
+    - **C#**: Fixes are made on line 30 and 59
     - **Python**: Fixes are made on line 18 and 31
 
 The app for Go Fish in `sample-code` can be run, if you replace the lines with bugs with the response from Azure OpenAI. If you run it without the fixes, it will not work correctly.
